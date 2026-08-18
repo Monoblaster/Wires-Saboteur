@@ -3,9 +3,8 @@
 @left in start: exec
 @left in board: entity
 
-import * as card from "cards"
-
-// TODO: abstract away types, the deck and arrays from this code. this code should deal purely in using those functions
+import * as Card from "cards"
+import { CHANNEL } from "chair"
 
 //format:
 // each tile is 4 characters wide and 2 characters tall
@@ -405,7 +404,10 @@ var tunneldisplaybackground: string
 let brickgrid = ReadBrickGrid()
 
 var cardpositions: vector[]
+var seated: character[]
 @closed chip on brickgrid {
+	var empty: character
+	seated.resize(12,empty)
 	cardpositions = [Vec(0.0,0.8,0),Vec(0.1,0.8,0),Vec(0.2,0.8,0),Vec(0.3,0.8,0),Vec(0.4,0.8,0),Vec(0.4,0.8,0)]
 }
 
@@ -447,72 +449,72 @@ mod SetTunnelArt(x: int, y: int, (topart, botart, symbol1, symbol2, background):
 var possibleconnectionsarray: int[]
 var placedlocationsarray: vector[]
 
-//mod DisplayTunnelCard(character: entity, card: Card, position: int) {
-//	let anchor = cardpositions[position]
-//	let anchorx = anchor.x
-//	let anchory = anchor.y
-//	let {symbol, a} = card.tunnel
-//	let {layer1, layer2} = symbol
-//	let {topart, botart} = a
-//	let displaysize = 40
-//	let symbolsize = displaysize * 1.34375
-//	let backgroundsize = displaysize * 2
-//	let symbolyoffset = 0
-//	let outlinesize = 1
-//	let tunneloutlinecolor = ColorHex("#FFFFFF")
-//	let backgroundcolor = ColorHex("#666")
-//	character.DisplayText('<font="IosevkaTerm"><sharp><color="${backgroundcolor.ToHex()}"><size="${backgroundsize}">██', outlineSize = outlinesize, outlineColor = backgroundcolor , anchorX = anchorx, anchorY = anchory, justify = "Left", textId = 1)
-//	character.DisplayText('<font="IosevkaTerm"><sharp><size="${displaysize}">${topart}\n${botart}', outlineSize = outlinesize, outlineColor = tunneloutlinecolor, anchorX = anchorx, anchorY = anchory, justify = "Left", textId = 2)
-//	character.DisplayText('<font="IosevkaTerm"><size="${symbolsize}">${layer1}', outlineSize = outlinesize, positionY = symbolyoffset, anchorX = anchorx, anchorY = anchory, justify = "Left", textId = 3)
-//	character.DisplayText('<font="IosevkaTerm"><size="${symbolsize}">${layer2}', outlineSize = outlinesize, positionY = symbolyoffset, justify = "Left", textId = 4)
-//}
+mod DisplayTunnelCard(character: entity, {tunnelcard}: Card.DrawnCard, position: int) {
+	let anchor = cardpositions[position]
+	let anchorx = anchor.x
+	let anchory = anchor.y
+	let {symbol, a} = tunnelcard
+	let {layer1, layer2} = symbol
+	let {topart, botart} = a
+	let displaysize = 40
+	let symbolsize = displaysize * 1.34375
+	let backgroundsize = displaysize * 2
+	let symbolyoffset = 0
+	let outlinesize = 1
+	let tunneloutlinecolor = ColorHex("#FFFFFF")
+	let backgroundcolor = ColorHex("#666")
+	character.DisplayText('<font="IosevkaTerm"><sharp><color="${backgroundcolor.ToHex()}"><size="${backgroundsize}">██', outlineSize = outlinesize, outlineColor = backgroundcolor , anchorX = anchorx, anchorY = anchory, justify = "Left", textId = 1)
+	character.DisplayText('<font="IosevkaTerm"><sharp><size="${displaysize}">${topart}\n${botart}', outlineSize = outlinesize, outlineColor = tunneloutlinecolor, anchorX = anchorx, anchorY = anchory, justify = "Left", textId = 2)
+	character.DisplayText('<font="IosevkaTerm"><size="${symbolsize}">${layer1}', outlineSize = outlinesize, positionY = symbolyoffset, anchorX = anchorx, anchorY = anchory, justify = "Left", textId = 3)
+	character.DisplayText('<font="IosevkaTerm"><size="${symbolsize}">${layer2}', outlineSize = outlinesize, positionY = symbolyoffset, justify = "Left", textId = 4)
+}
 
-mod PlaceTunnelCard(x: int, y: int, card: card.DrawnCard, isb: bool) {
-	let {topart,botart,symbol1,symbol2,connections} = card.SplitTunnelCard(card,isb)
+mod PlaceTunnelCard(x: int, y: int, card: Card.TunnelCard, isb: bool) {
+	let {topart,botart,symbol1,symbol2,connections} = Card.SplitTunnelCard(card,isb)
 	SetTunnelArt(x,y,(topart,botart,symbol1,symbol2,ColorHex("#666")))
-	//
-	//let left = Vec(x - 1, y, 0)
-	//let up = Vec(x, y - 1, 0)
-	//let right = Vec(x + 1, y, 0)
-	//let down = Vec(x, y + 1, 0)
-	//placedlocationsarray.push(Vec(x,y,0))
-	//
-	//mod AddDirection(vec: vector, mask: int,isconnection: bool) {
-	//	let split = vec.SplitVec()
-	//	let x = split.x
-	//	let y = split.y
-	//	let {Found} = placedlocationsarray.find(vec)
-	//	//mask: 4 connections to adjacent tiles 4 bits that must follow connection rules
-	//	let connectionmask = mask & (if isconnection then 0b1111 else 0b0000)
-	//	let fullmask = connectionmask << 4 | mask
-	//	if Found {
-	//		return
-	//	}
-	//
-	//	let index = x + y * gridwidth
-	//	let oldmask = possibleconnectionsarray[index]
-	//	let newmask = oldmask | fullmask
-	//	possibleconnectionsarray[index] = newmask
-	//}
-	//
-	//if left.x >= 0 {
-	//	AddDirection(left,0b0010,0b1000000000 & connections)
-	//}
-	//if up.y >= 0 {
-	//	AddDirection(up,0b0001,0b0100000000 & connections)
-	//}
-	//if right.x < gridwidth {
-	//	AddDirection(right,0b1000,0b0010000000 & connections)
-	//}
-	//if down.y < gridheight {
-	//	AddDirection(down,0b0100,0b0001000000 & connections )
-	//}
+
+	let left = Vec(x - 1, y, 0)
+	let up = Vec(x, y - 1, 0)
+	let right = Vec(x + 1, y, 0)
+	let down = Vec(x, y + 1, 0)
+	placedlocationsarray.push(Vec(x,y,0))
+
+	mod AddDirection(vec: vector, mask: int,isconnection: bool) {
+		let split = vec.SplitVec()
+		let x = split.x
+		let y = split.y
+		let {Found} = placedlocationsarray.find(vec)
+		//mask: 4 connections to adjacent tiles 4 bits that must follow connection rules
+		let connectionmask = mask & (if isconnection then 0b1111 else 0b0000)
+		let fullmask = connectionmask << 4 | mask
+		if Found {
+			return
+		}
+
+		let index = x + y * gridwidth
+		let oldmask = possibleconnectionsarray[index]
+		let newmask = oldmask | fullmask
+		possibleconnectionsarray[index] = newmask
+	}
+
+	if left.x >= 0 {
+		AddDirection(left,0b0010,0b1000000000 & connections)
+	}
+	if up.y >= 0 {
+		AddDirection(up,0b0001,0b0100000000 & connections)
+	}
+	if right.x < gridwidth {
+		AddDirection(right,0b1000,0b0010000000 & connections)
+	}
+	if down.y < gridheight {
+		AddDirection(down,0b0100,0b0001000000 & connections )
+	}
 }
 
 
 
 @closed chip on start {
-	card.MakeDeck()
+	Card.MakeDeck()
 	
 
 	possibleconnectionsarray.clear()
@@ -522,18 +524,58 @@ mod PlaceTunnelCard(x: int, y: int, card: card.DrawnCard, isb: bool) {
 	UpdateTunnelDisplay()
 
 	//setup
-	//PlaceTunnelCard(9,4,card.start,false)
-	//SetTunnelBackground(9,4,ColorHex("#666"))
-	//PlaceTunnelCard(2,2,card.uknown,false)
-	//SetTunnelBackground(2,2,ColorHex("#500"))
-	//PlaceTunnelCard(2,4,card.uknown,false)
-	//SetTunnelBackground(2,4,ColorHex("#500"))
-	//PlaceTunnelCard(2,6,card.uknown,false)
-	//SetTunnelBackground(2,6,ColorHex("#500"))
+	mod SetTunnelArtFromCard(x: int, y: int, card: Card.TunnelCard, background: color) {
+		let {topart,botart,symbol1,symbol2} = Card.SplitTunnelCard(card,false)
+		SetTunnelArt(x,y,(topart,botart,symbol1,symbol2,background))
+		
+	}
+	SetTunnelArtFromCard(9,4,Card.start,ColorHex("#666"))
+	SetTunnelArtFromCard(2,2,Card.uknown,ColorHex("#500"))
+	SetTunnelArtFromCard(2,4,Card.uknown,ColorHex("#500"))
+	SetTunnelArtFromCard(2,6,Card.uknown,ColorHex("#500"))
 
 	UpdateTunnelDisplay()
 }
 
+
+@closed chip on CustomEvent("seatoutput", isObject = true) -> (data1: int, data2: string, data3: character) {
+	if data3 != seated[data1]  {
+		seated[data1] = data3
+	}
+	if data2 == "click" {
+		let character = seated[data1]
+		let rotation = board.GetRotation().Invert()
+		let position = board.GetLocation()
+		let gridbrickwidth = gridwidth * 10
+		let gridbrickheight = gridheight * 12
+
+		let aim = character.GetAim()
+		let origin = aim.Origin
+		let direction = aim.Direction
+		let result = Sweep(origin,direction,1000, ignore = brickgrid,detectBricks = true,detectPlayers1 = false,detectPlayers2 = false,detectPlayers3 = false ,detectPlayers4 = false)
+		if result.Miss || result.HitEntity != board {
+			return
+		}
+		let localhitlocation = (result.HitLocation - position).Rotate(rotation)
+
+
+		let u = (localhitlocation.x / (gridbrickheight / 2) - 1) / -2
+		let v = (localhitlocation.y / (gridbrickwidth / 2) + 1) / 2
+
+		let y = floor(clamp(gridheight * u, 0, gridheight-1))
+		let x = floor(clamp(gridwidth * v, 0, gridwidth-1))
+
+		if placedlocationsarray.find(Vec(x, y, 0)).Found {
+			return
+		}
+
+		let r = Card.UnwrapTunnelCard(Card.DrawCard())
+		if r.success {
+			PlaceTunnelCard(x,y,r.card,false)
+			UpdateTunnelDisplay()
+		}
+	}
+}
 
 @bottom out tunnel_display = tunneldisplay.Value
 @bottom out tunnel_display_symbol1 = tunneldisplaysymbol1.Value

@@ -1,16 +1,16 @@
-import * as symbol from "symbols"
-import * as tunnel from "tunnels"
-import * as action from "actions"
+import * as Symbol from "symbols"
+import * as Tunnel from "tunnels"
+import * as Action from "actions"
 
 let brickgrid = ReadBrickGrid()
 
-type TunnelCard = {a: tunnel.Tunnel, b: tunnel.Tunnel, symbol: symbol.Symbol}
-let empty: TunnelCard = {a: tunnel.empty, b: tunnel.empty, symbol: symbol.empty}
-let start: TunnelCard = {...empty, a: tunnel.cross, b: tunnel.cross, symbol: symbol.ladder}
-let gold: TunnelCard = {...empty, a: tunnel.cross, b: tunnel.cross, symbol: symbol.gold}
-let coalleft: TunnelCard = {...empty, a: tunnel.leftturnup, b: tunnel.leftturndown, symbol: symbol.coal}
-let coalright: TunnelCard = {...empty, a: tunnel.rightturnup, b: tunnel.rightturndown, symbol: symbol.coal}
-let uknown: TunnelCard = {...empty, a: tunnel.facedown, b: tunnel.facedown, symbol: symbol.uknown}
+type TunnelCard = {a: Tunnel.Tunnel, b: Tunnel.Tunnel, symbol: Symbol.Symbol}
+let empty: TunnelCard = {a: Tunnel.empty, b: Tunnel.empty, symbol: Symbol.empty}
+let start: TunnelCard = {...empty, a: Tunnel.cross, b: Tunnel.cross, symbol: Symbol.ladder}
+let gold: TunnelCard = {...empty, a: Tunnel.cross, b: Tunnel.cross, symbol: Symbol.gold}
+let coalleft: TunnelCard = {...empty, a: Tunnel.leftturnup, b: Tunnel.leftturndown, symbol: Symbol.coal}
+let coalright: TunnelCard = {...empty, a: Tunnel.rightturnup, b: Tunnel.rightturndown, symbol: Symbol.coal}
+let uknown: TunnelCard = {...empty, a: Tunnel.facedown, b: Tunnel.facedown, symbol: Symbol.uknown}
 
 type ActionCard = {}
 
@@ -19,247 +19,247 @@ type TunnelInfo = {card: TunnelCard, amount: int}
 let tunnels = ({
 	card: {
 		...empty,
-		a: tunnel.longstraight, b: tunnel.longstraight, symbol: symbol.empty,
+		a: Tunnel.longstraight, b: Tunnel.longstraight, symbol: Symbol.empty,
 	},
 	amount: 4,
 },{
 	card: {
 		...empty,
-		a: tunnel.longtleft, b: tunnel.longtright, symbol: symbol.empty,
+		a: Tunnel.longtleft, b: Tunnel.longtright, symbol: Symbol.empty,
 	},
 	amount: 5,
 },{
 	card: {
 		...empty,
-		a: tunnel.cross, b: tunnel.cross, symbol: symbol.empty,
+		a: Tunnel.cross, b: Tunnel.cross, symbol: Symbol.empty,
 	},
 	amount: 5,
 },{
 	card: {
 		...empty,
-		a: tunnel.rightturnup, b: tunnel.rightturndown, symbol: symbol.empty,
+		a: Tunnel.rightturnup, b: Tunnel.rightturndown, symbol: Symbol.empty,
 	},
 	amount: 4,
 },{
 	card: {
 		...empty,
-		a: tunnel.leftturnup, b: tunnel.leftturndown, symbol: symbol.empty,
+		a: Tunnel.leftturnup, b: Tunnel.leftturndown, symbol: Symbol.empty,
 	},
 	amount: 5,
 },{
 	card: {
 		...empty,
-		a: tunnel.longdeadendup, b: tunnel.longdeadenddown, symbol: symbol.empty,
+		a: Tunnel.longdeadendup, b: Tunnel.longdeadenddown, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.longtdeadendleft, b: tunnel.longtdeadendright, symbol: symbol.empty,
+		a: Tunnel.longtdeadendleft, b: Tunnel.longtdeadendright, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.crossdeadend, b: tunnel.crossdeadend, symbol: symbol.empty,
+		a: Tunnel.crossdeadend, b: Tunnel.crossdeadend, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.rightturndeadendup, b: tunnel.rightturndeadenddown, symbol: symbol.empty,
+		a: Tunnel.rightturndeadendup, b: Tunnel.rightturndeadenddown, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.leftturndeadendup, b: tunnel.leftturndeadenddown, symbol: symbol.empty,
+		a: Tunnel.leftturndeadendup, b: Tunnel.leftturndeadenddown, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortdeadendleft, b: tunnel.shortdeadendright, symbol: symbol.empty,
+		a: Tunnel.shortdeadendleft, b: Tunnel.shortdeadendright, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shorttup, b: tunnel.shorttdown, symbol: symbol.empty,
+		a: Tunnel.shorttup, b: Tunnel.shorttdown, symbol: Symbol.empty,
 	},
 	amount: 5,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortstraight, b: tunnel.shortstraight, symbol: symbol.empty,
+		a: Tunnel.shortstraight, b: Tunnel.shortstraight, symbol: Symbol.empty,
 	},
 	amount: 3,
 },{
 	card: {
 		...empty,
-		a: tunnel.longstraightdeadend, b: tunnel.longstraightdeadend, symbol: symbol.empty,
+		a: Tunnel.longstraightdeadend, b: Tunnel.longstraightdeadend, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shorttdeadendup, b: tunnel.shorttdeadenddown, symbol: symbol.empty,
+		a: Tunnel.shorttdeadendup, b: Tunnel.shorttdeadenddown, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortstraightdeadend, b: tunnel.shortstraightdeadend, symbol: symbol.empty,
+		a: Tunnel.shortstraightdeadend, b: Tunnel.shortstraightdeadend, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.tunnel, b: tunnel.tunnel, symbol: symbol.tunnelsupport,
+		a: Tunnel.tunnel, b: Tunnel.tunnel, symbol: Symbol.tunnelsupport,
 	},
 	amount: 2,
 },{
 	card: {
 		...empty,
-		a: tunnel.longtstraightdeadendleft, b: tunnel.longtstraightdeadendright, symbol: symbol.greendoor,
+		a: Tunnel.longtstraightdeadendleft, b: Tunnel.longtstraightdeadendright, symbol: Symbol.greendoor,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.leftturnup, b: tunnel.leftturndown, symbol: symbol.greendoor,
+		a: Tunnel.leftturnup, b: Tunnel.leftturndown, symbol: Symbol.greendoor,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortstraight, b: tunnel.shortstraight, symbol: symbol.greendoor,
+		a: Tunnel.shortstraight, b: Tunnel.shortstraight, symbol: Symbol.greendoor,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.longstraight, b: tunnel.longstraight, symbol: symbol.bluedoor,
+		a: Tunnel.longstraight, b: Tunnel.longstraight, symbol: Symbol.bluedoor,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.rightturnup, b: tunnel.rightturndown, symbol: symbol.bluedoor,
+		a: Tunnel.rightturnup, b: Tunnel.rightturndown, symbol: Symbol.bluedoor,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortstraight, b: tunnel.shortstraight, symbol: symbol.bluedoor,
+		a: Tunnel.shortstraight, b: Tunnel.shortstraight, symbol: Symbol.bluedoor,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortdeadendleft, b: tunnel.shortdeadendright, symbol: symbol.ladder,
+		a: Tunnel.shortdeadendleft, b: Tunnel.shortdeadendright, symbol: Symbol.ladder,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.longdeadendup, b: tunnel.longdeadenddown, symbol: symbol.ladder,
+		a: Tunnel.longdeadendup, b: Tunnel.longdeadenddown, symbol: Symbol.ladder,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.rightturnup, b: tunnel.rightturndown, symbol: symbol.ladder,
+		a: Tunnel.rightturnup, b: Tunnel.rightturndown, symbol: Symbol.ladder,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.leftturnup, b: tunnel.leftturndown, symbol: symbol.ladder,
+		a: Tunnel.leftturnup, b: Tunnel.leftturndown, symbol: Symbol.ladder,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortdeadendleft, b: tunnel.shortdeadendright, symbol: symbol.gem,
+		a: Tunnel.shortdeadendleft, b: Tunnel.shortdeadendright, symbol: Symbol.gem,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shorttup, b: tunnel.shorttdown, symbol: symbol.gem,
+		a: Tunnel.shorttup, b: Tunnel.shorttdown, symbol: Symbol.gem,
 	},
 	amount: 3,
 },{
 	card: {
 		...empty,
-		a: tunnel.cross, b: tunnel.cross, symbol: symbol.gem,
+		a: Tunnel.cross, b: Tunnel.cross, symbol: Symbol.gem,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.longtleft, b: tunnel.longtright, symbol: symbol.gem,
+		a: Tunnel.longtleft, b: Tunnel.longtright, symbol: Symbol.gem,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortcrossdeadendup, b: tunnel.shortcrossdeadenddown, symbol: symbol.gem,
+		a: Tunnel.shortcrossdeadendup, b: Tunnel.shortcrossdeadenddown, symbol: Symbol.gem,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.longdeadendup, b: tunnel.longdeadenddown, symbol: symbol.gem,
+		a: Tunnel.longdeadendup, b: Tunnel.longdeadenddown, symbol: Symbol.gem,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.longcrossdeadendleft, b: tunnel.longcrossdeadendleft, symbol: symbol.gem,
+		a: Tunnel.longcrossdeadendleft, b: Tunnel.longcrossdeadendleft, symbol: Symbol.gem,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shorttstraightdeadendup, b: tunnel.shorttstraightdeadenddown, symbol: symbol.gem,
+		a: Tunnel.shorttstraightdeadendup, b: Tunnel.shorttstraightdeadenddown, symbol: Symbol.gem,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.doubleturn, b: tunnel.doubleturn, symbol: symbol.empty,
+		a: Tunnel.doubleturn, b: Tunnel.doubleturn, symbol: Symbol.empty,
 	},
 	amount: 2,
 },{
 	card: {
 		...empty,
-		a: tunnel.longtrightturndeadendup, b: tunnel.longtrightturndeadenddown, symbol: symbol.empty,
+		a: Tunnel.longtrightturndeadendup, b: Tunnel.longtrightturndeadenddown, symbol: Symbol.empty,
 	},
 	amount: 2,
 },{
 	card: {
 		...empty,
-		a: tunnel.longtleftturndeadendup, b: tunnel.longtleftturndeadenddown, symbol: symbol.empty,
+		a: Tunnel.longtleftturndeadendup, b: Tunnel.longtleftturndeadenddown, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.longtstraightdeadendleft, b: tunnel.longtstraightdeadendright, symbol: symbol.empty,
+		a: Tunnel.longtstraightdeadendleft, b: Tunnel.longtstraightdeadendright, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.longcrossdeadend, b: tunnel.longcrossdeadend, symbol: symbol.empty,
+		a: Tunnel.longcrossdeadend, b: Tunnel.longcrossdeadend, symbol: Symbol.empty,
 	},
 	amount: 1,
 },{
 	card: {
 		...empty,
-		a: tunnel.shortcrossdeadend, b: tunnel.shortcrossdeadend, symbol: symbol.empty,
+		a: Tunnel.shortcrossdeadend, b: Tunnel.shortcrossdeadend, symbol: Symbol.empty,
 	},
 	amount: 1,
 })
@@ -278,6 +278,7 @@ on brickgrid {
 		let {a,b,symbol} = card
 		tunnelamountarray.push(amount)
 		tunnelartarray.push("${a.topart}${a.botart}${b.topart}${b.botart}")
+		tunnelartarray.push("${symbol.layer1}")
 		tunnelartarray.push("${symbol.layer2}")
 		tunnelconnectionsarray.push((a.connections << 10) | b.connections)
 	}
@@ -325,21 +326,20 @@ on brickgrid {
 	AddTunnelCard(tunnels.40)
 }
 
-chip {
-	//format:
-	// type:index
-	var Deck: string[]
-}
+//format:
+// type:index
+var deck: string[]
+
 //makes the deck fills it with indexes from the tunnel and action card tables
 mod MakeDeck() {
-	Deck.clear()
+	deck.clear()
 	let cardtype = "tunnel"
 	let amountarray = tunnelamountarray
 	mod AddToDeck(index: int) {
 		let amount = amountarray[index]
 
 		mod AddCard() {
-			Deck.push('${cardtype}:${index}')
+			deck.push('${cardtype}:${index}')
 		}
 
 		if amount > 0 {
@@ -407,15 +407,16 @@ mod MakeDeck() {
 	AddToDeck(39)
 	AddToDeck(40)
 
-	Deck.shuffle()
+	deck.shuffle()
 }
 
 type DrawnCard = {cardtype: string, tunnelcard: TunnelCard, actioncard: ActionCard}
 let drawncardempty = {cardtype: "", tunnelcard: empty, actioncard: {}}
 
+
 //draws the next card from the deck
 mod DrawCard() -> (card: DrawnCard) {
-	let r = Deck.pop()
+	let r = deck.pop()
 	if r.IsEmpty {
 		out card = drawncardempty
 		return
@@ -435,42 +436,42 @@ mod DrawCard() -> (card: DrawnCard) {
 		let connectionsb = bothconnections & 0b00000000001111111111
 		let arta = art.Substring(0,8)
 		let artb = art.Substring(8,8)
-		let tunnela: tunnel.Tunnel = {topart: arta.Substring(0,4), botart: arta.Substring(4,4), connections: connectionsa}
-		let tunnelb: tunnel.Tunnel = {topart: artb.Substring(0,4), botart: artb.Substring(4,4), connections: connectionsb}
-		let symbol: symbol.Symbol = {layer1: symbol1, layer2: symbol2}
+		let tunnela: Tunnel.Tunnel = {topart: arta.Substring(0,4), botart: arta.Substring(4,4), connections: connectionsa}
+		let tunnelb: Tunnel.Tunnel = {topart: artb.Substring(0,4), botart: artb.Substring(4,4), connections: connectionsb}
+		let symbol: Symbol.Symbol = {layer1: symbol1, layer2: symbol2}
 
 		out card = {...drawncardempty, cardtype: cardtype, tunnelcard: {...empty, a: tunnela, b: tunnelb, symbol: symbol}}
 		return 
 	}
 }
 
-mod IsTunnelCard({cardtype}: DrawnCard) -> bool {
-	return cardtype == "Tunnel"
+mod UnwrapTunnelCard({cardtype,tunnelcard}: DrawnCard) -> (success: bool, card: TunnelCard) {
+	out success = cardtype == "Tunnel"
+	out card = tunnelcard
 }
 
-mod IsActionCard({cardtype}: DrawnCard) -> bool {
-	return cardtype == "Action"
+mod UnwrapActionCard({cardtype,actioncard}: DrawnCard) -> (success: bool, card: ActionCard) {
+	out success = cardtype == "Action"
+	out card = actioncard
 }
+
 
 //gets the art for the tunnel card
-mod SplitTunnelCard({tunnelcard}: DrawnCard, isb: bool) -> (topart: string, botart: string, symbol1: string, symbol2: string, connections: int) {
-	let a = tunnelcard.a
-	let b = tunnelcard.b
-	let symbol = tunnelcard.symbol
+mod SplitTunnelCard({a,b,symbol}: TunnelCard, isb: bool) -> (topart: string, botart: string, symbol1: string, symbol2: string, connections: int) {
 	out topart = if isb then b.topart else a.topart
 	out botart = if isb then b.botart else a.botart
-	out symbol1 = symbol.layer1
-	out symbol2 = symbol.layer2
+	out symbol1 = Symbol.layer1
+	out symbol2 = Symbol.layer2
 	out connections = if isb then b.connections else a.connections
 }
 
 //checks if the tunnel card works for the required connections
-mod Connects({tunnelcard}: DrawnCard, mask: int) -> (a: bool, b: bool) {
+mod Connects({a,b}: TunnelCard, mask: int) -> (a: bool, b: bool) {
 	let requiredmask = mask & 0b00001111
 	let connectionsmask = (mask & 0b11110000) >> 4
 	let requiredconnections = connectionsmask & requiredmask
 	let requiredempties = ~connectionsmask & requiredmask
-	mod CanTunnelConnect(tunnel: tunnel.Tunnel) -> bool {
+	mod CanTunnelConnect(tunnel: Tunnel.Tunnel) -> bool {
 		let connections = (tunnel.connections & 0b1111000000) >> 6
 		//checking if all connection hits match the required connections and likewise for empties
 		let connects = (~(requiredconnections ^ connections) & requiredconnections) == requiredconnections
@@ -478,6 +479,6 @@ mod Connects({tunnelcard}: DrawnCard, mask: int) -> (a: bool, b: bool) {
 		return connects && empties
 	}
 
-	out a = CanTunnelConnect(tunnelcard.a)
-	out b = CanTunnelConnect(tunnelcard.b)
+	out a = CanTunnelConnect(a)
+	out b = CanTunnelConnect(b)
 }
