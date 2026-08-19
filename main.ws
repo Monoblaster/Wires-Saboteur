@@ -538,7 +538,7 @@ mod PlaceTunnelCard(x: int, y: int, card: Card.TunnelCard, isb: bool) {
 }
 
 
-@closed chip on CustomEvent("seatoutput", isObject = true) -> (data1: int, data2: string, data3: character) {
+@closed chip on CustomEvent(CHANNEL, isObject = true) -> (data1: int, data2: string, data3: character) {
 	if data3 != seated[data1]  {
 		seated[data1] = data3
 	}
