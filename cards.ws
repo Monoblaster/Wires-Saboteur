@@ -411,7 +411,7 @@ mod MakeDeck() {
 }
 
 type DrawnCard = {cardtype: string, tunnelcard: TunnelCard, actioncard: ActionCard}
-let drawncardempty = {cardtype: "", tunnelcard: empty, actioncard: {}}
+let drawncardempty: DrawnCard = {cardtype: "", tunnelcard: empty, actioncard: {}}
 
 
 //draws the next card from the deck
