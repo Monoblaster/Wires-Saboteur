@@ -455,13 +455,12 @@ mod UnwrapActionCard({cardtype,actioncard}: DrawnCard) -> (success: bool, card: 
 	out card = actioncard
 }
 
-
 //gets the art for the tunnel card
 mod SplitTunnelCard({a,b,symbol}: TunnelCard, isb: bool) -> (topart: string, botart: string, symbol1: string, symbol2: string, connections: int) {
 	out topart = if isb then b.topart else a.topart
 	out botart = if isb then b.botart else a.botart
-	out symbol1 = Symbol.layer1
-	out symbol2 = Symbol.layer2
+	out symbol1 = symbol.layer1
+	out symbol2 = symbol.layer2
 	out connections = if isb then b.connections else a.connections
 }
 
