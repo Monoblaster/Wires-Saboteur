@@ -431,7 +431,7 @@ mod SetTunnelArt(x: int, y: int, (topart, botart, symbol1, symbol2, background):
 	}
 
 	SetLayer(tunneldisplaysymbol1array,symbol1)
-	SetLayer(tunneldisplaysymbol2array,symbol1)
+	SetLayer(tunneldisplaysymbol2array,symbol2)
 
 	let top = tunneldisplayarray[tunnelrow]
 	let bottom = tunneldisplayarray[tunnelrow + 1]
@@ -512,27 +512,26 @@ mod PlaceTunnelCard(x: int, y: int, card: Card.TunnelCard, isb: bool) {
 }
 
 @closed chip on start {
-	//Card.MakeDeck()
-	//
-	//possibleconnectionsarray.clear()
-	//placedlocationsarray.clear()
-	//possibleconnectionsarray.resize(gridwidth * gridheight, 0b00000000) 
-	//ClearTunnels()
-	//UpdateTunnelDisplay()
-	//
-	////setup
-	//mod SetTunnelArtFromCard(x: int, y: int, card: Card.TunnelCard, background: color) {
-	//	let {topart,botart,symbol1,symbol2} = Card.SplitTunnelCard(card,false)
-	//	SetTunnelArt(x,y,(topart,botart,symbol1,symbol2,background))
-	//
-	//}
-	//SetTunnelArtFromCard(9,4,Card.start,ColorHex("#666"))
-	//SetTunnelArtFromCard(2,2,Card.uknown,ColorHex("#500"))
-	//SetTunnelArtFromCard(2,4,Card.uknown,ColorHex("#500"))
-	//SetTunnelArtFromCard(2,6,Card.uknown,ColorHex("#500"))
-	//
-	//UpdateTunnelDisplay()
-	FindPlayer("Monoblaster").ShowChatMessage('hi')
+	Card.MakeDeck()
+
+	possibleconnectionsarray.clear()
+	placedlocationsarray.clear()
+	possibleconnectionsarray.resize(gridwidth * gridheight, 0b00000000) 
+	ClearTunnels()
+	UpdateTunnelDisplay()
+
+	//setup
+	mod SetTunnelArtFromCard(x: int, y: int, card: Card.TunnelCard, background: color) {
+		let {topart,botart,symbol1,symbol2} = Card.SplitTunnelCard(card,false)
+		SetTunnelArt(x,y,(topart,botart,symbol1,symbol2,background))
+
+	}
+	SetTunnelArtFromCard(9,4,Card.start,ColorHex("#666"))
+	SetTunnelArtFromCard(2,2,Card.uknown,ColorHex("#500"))
+	SetTunnelArtFromCard(2,4,Card.uknown,ColorHex("#500"))
+	SetTunnelArtFromCard(2,6,Card.uknown,ColorHex("#500"))
+
+	UpdateTunnelDisplay()
 }
 
 

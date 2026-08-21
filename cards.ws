@@ -284,46 +284,46 @@ on brickgrid {
 	}
 
 	AddTunnelCard(tunnels.0)
-	AddTunnelCard(tunnels.1)
-	AddTunnelCard(tunnels.2)
-	AddTunnelCard(tunnels.3)
-	AddTunnelCard(tunnels.4)
-	AddTunnelCard(tunnels.5)
-	AddTunnelCard(tunnels.6)
-	AddTunnelCard(tunnels.7)
-	AddTunnelCard(tunnels.8)
-	AddTunnelCard(tunnels.9)
-	AddTunnelCard(tunnels.10)
-	AddTunnelCard(tunnels.11)
-	AddTunnelCard(tunnels.12)
-	AddTunnelCard(tunnels.13)
-	AddTunnelCard(tunnels.14)
-	AddTunnelCard(tunnels.15)
-	AddTunnelCard(tunnels.16)
-	AddTunnelCard(tunnels.17)
-	AddTunnelCard(tunnels.18)
-	AddTunnelCard(tunnels.19)
-	AddTunnelCard(tunnels.20)
-	AddTunnelCard(tunnels.21)
-	AddTunnelCard(tunnels.22)
-	AddTunnelCard(tunnels.23)
-	AddTunnelCard(tunnels.24)
-	AddTunnelCard(tunnels.25)
-	AddTunnelCard(tunnels.26)
-	AddTunnelCard(tunnels.27)
-	AddTunnelCard(tunnels.28)
-	AddTunnelCard(tunnels.29)
-	AddTunnelCard(tunnels.30)
-	AddTunnelCard(tunnels.31)
-	AddTunnelCard(tunnels.32)
-	AddTunnelCard(tunnels.33)
-	AddTunnelCard(tunnels.34)
-	AddTunnelCard(tunnels.35)
-	AddTunnelCard(tunnels.36)
-	AddTunnelCard(tunnels.37)
-	AddTunnelCard(tunnels.38)
-	AddTunnelCard(tunnels.39)
-	AddTunnelCard(tunnels.40)
+	// AddTunnelCard(tunnels.1)
+	// AddTunnelCard(tunnels.2)
+	// AddTunnelCard(tunnels.3)
+	// AddTunnelCard(tunnels.4)
+	// AddTunnelCard(tunnels.5)
+	// AddTunnelCard(tunnels.6)
+	// AddTunnelCard(tunnels.7)
+	// AddTunnelCard(tunnels.8)
+	// AddTunnelCard(tunnels.9)
+	// AddTunnelCard(tunnels.10)
+	// AddTunnelCard(tunnels.11)
+	// AddTunnelCard(tunnels.12)
+	// AddTunnelCard(tunnels.13)
+	// AddTunnelCard(tunnels.14)
+	// AddTunnelCard(tunnels.15)
+	// AddTunnelCard(tunnels.16)
+	// AddTunnelCard(tunnels.17)
+	// AddTunnelCard(tunnels.18)
+	// AddTunnelCard(tunnels.19)
+	// AddTunnelCard(tunnels.20)
+	// AddTunnelCard(tunnels.21)
+	// AddTunnelCard(tunnels.22)
+	// AddTunnelCard(tunnels.23)
+	// AddTunnelCard(tunnels.24)
+	// AddTunnelCard(tunnels.25)
+	// AddTunnelCard(tunnels.26)
+	// AddTunnelCard(tunnels.27)
+	// AddTunnelCard(tunnels.28)
+	// AddTunnelCard(tunnels.29)
+	// AddTunnelCard(tunnels.30)
+	// AddTunnelCard(tunnels.31)
+	// AddTunnelCard(tunnels.32)
+	// AddTunnelCard(tunnels.33)
+	// AddTunnelCard(tunnels.34)
+	// AddTunnelCard(tunnels.35)
+	// AddTunnelCard(tunnels.36)
+	// AddTunnelCard(tunnels.37)
+	// AddTunnelCard(tunnels.38)
+	// AddTunnelCard(tunnels.39)
+	// AddTunnelCard(tunnels.40)
 }
 
 //format:
@@ -334,9 +334,10 @@ var deck: string[]
 mod MakeDeck() {
 	deck.clear()
 	let cardtype = "tunnel"
-	let amountarray = tunnelamountarray
+	// let amountarray = tunnelamountarray
 	mod AddToDeck(index: int) {
-		let amount = amountarray[index]
+		let amount = tunnelamountarray[index]
+		BroadcastChatMessage(index .." " .. amount)
 
 		mod AddCard() {
 			deck.push('${cardtype}:${index}')
@@ -409,6 +410,7 @@ mod MakeDeck() {
 
 	deck.shuffle()
 }
+MakeDeck()
 
 type DrawnCard = {cardtype: string, tunnelcard: TunnelCard, actioncard: ActionCard}
 let drawncardempty: DrawnCard = {cardtype: "", tunnelcard: empty, actioncard: {}}
